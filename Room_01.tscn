@@ -1,0 +1,139 @@
+[gd_scene load_steps=18 format=3 uid="uid://bas5gw1jrys5v"]
+
+[ext_resource type="PackedScene" uid="uid://de2k38hvu000c" path="res://addons/RadMatt.3DFPP/Player.tscn" id="1"]
+[ext_resource type="PackedScene" path="res://entities/Basketball_board.tscn" id="5"]
+[ext_resource type="Script" path="res://addons/RadMatt.3DFPP/Test_Objects/pickable/Pickable.gd" id="17"]
+[ext_resource type="ArrayMesh" uid="uid://crfr117qmhjae" path="res://entities/Basketball/ball/Ball.obj" id="18"]
+
+[sub_resource type="Environment" id="1"]
+ambient_light_color = Color(0.243137, 0.239216, 0.419608, 1)
+ssao_enabled = true
+ssao_radius = 2.0
+ssao_intensity = 3.0
+ssao_light_affect = 0.7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_i8j2v"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_dpibb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1v5b1"]
+size = Vector3(2, 50, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fcnvm"]
+size = Vector3(2, 50, 60)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lwyaq"]
+size = Vector3(30, 50, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yijtw"]
+size = Vector3(30, 50, 2)
+
+[sub_resource type="PhysicsMaterial" id="20"]
+bounce = 0.1
+
+[sub_resource type="SphereMesh" id="21"]
+radial_segments = 12
+rings = 12
+
+[sub_resource type="SphereShape3D" id="23"]
+radius = 0.1
+
+[sub_resource type="PhysicsMaterial" id="24"]
+bounce = 0.6
+
+[sub_resource type="PhysicsMaterial" id="26"]
+bounce = 0.6
+
+[sub_resource type="SphereShape3D" id="29"]
+radius = 0.437386
+
+[node name="Room_01" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 4.776)
+
+[node name="world" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="world"]
+environment = SubResource("1")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="world"]
+size = Vector3(48.1898, 17.9788, 54.4536)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="world"]
+transform = Transform3D(1, 0, 0, 0, 0.823335, 0.567556, 0, -0.567556, 0.823335, 0, 9.52827, 0)
+shadow_enabled = true
+
+[node name="Basketball_board" parent="." instance=ExtResource("5")]
+transform = Transform3D(-7.71819e-08, 0, -1.76572, 0, 1.76572, 0, 1.76572, 0, -7.71819e-08, 0, 4.37174, -11.361)
+
+[node name="Basketball" type="Node3D" parent="."]
+
+[node name="Court" type="StaticBody3D" parent="Basketball"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Basketball/Court"]
+transform = Transform3D(15, 0, 0, 0, 28, 0, 0, 0, 28, 0, 0, 0)
+mesh = SubResource("PlaneMesh_i8j2v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Basketball/Court"]
+shape = SubResource("WorldBoundaryShape3D_dpibb")
+
+[node name="Wand - links" type="CollisionShape3D" parent="Basketball/Court"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9892, 1.79355, -0.202723)
+shape = SubResource("BoxShape3D_1v5b1")
+
+[node name="Wand - rechts" type="CollisionShape3D" parent="Basketball/Court"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.0043, 0, 0)
+shape = SubResource("BoxShape3D_fcnvm")
+
+[node name="Wand - hinten" type="CollisionShape3D" parent="Basketball/Court"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28.6537)
+shape = SubResource("BoxShape3D_lwyaq")
+
+[node name="Wand - vorne" type="CollisionShape3D" parent="Basketball/Court"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -29.1203)
+shape = SubResource("BoxShape3D_yijtw")
+
+[node name="plastic_ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999582, -0.0288956, 0, 0.0288956, 0.999582, -2.71077, 2.10183, -1.35945)
+mass = 10.0
+physics_material_override = SubResource("20")
+can_sleep = false
+script = ExtResource("17")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="plastic_ball"]
+transform = Transform3D(0.15746, 0, 0, 0, 0.15746, -4.65661e-10, 0, 4.65661e-10, 0.15746, 0, 0, 0)
+mesh = SubResource("21")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="plastic_ball"]
+transform = Transform3D(1.5746, 0, 0, 0, 1.5746, 0, 0, 0, 1.5746, 0, 0, 0)
+shape = SubResource("23")
+
+[node name="rubber_ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999582, -0.0288956, 0, 0.0288956, 0.999582, -3.06532, 2.10183, 1.84988)
+mass = 10.0
+physics_material_override = SubResource("24")
+can_sleep = false
+script = ExtResource("17")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="rubber_ball"]
+transform = Transform3D(0.205196, 0, 0, 0, 0.205197, 4.65661e-10, 0, -4.65661e-10, 0.205197, 0, 0, 0)
+mesh = SubResource("21")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="rubber_ball"]
+transform = Transform3D(2.05196, 0, 0, 0, 2.05197, -7.45058e-09, 0, 7.45058e-09, 2.05197, 0, 0, 0)
+shape = SubResource("23")
+
+[node name="basketball ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999582, -0.0288956, 0, 0.0288956, 0.999582, 0, 0.675475, -6.17433)
+mass = 20.0
+physics_material_override = SubResource("26")
+can_sleep = false
+script = ExtResource("17")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="basketball ball"]
+transform = Transform3D(0.00452631, 0, 0, 0, 0.00452633, -1.45519e-11, 0, 1.45519e-11, 0.00452633, 0, 0, 0)
+mesh = ExtResource("18")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="basketball ball"]
+shape = SubResource("29")
