@@ -46,17 +46,8 @@ const DEACCEL = 0.8
 
 const JUMP_STR = 15
 
-# Ladder
-var on_ladder = false
-const LADDER_SPEED = 8
-const LADDER_ACCEL = 2
-
 #slope variables
 const MAX_SLOPE_ANGLE = 60
-
-#stair variables
-const MAX_STAIR_SLOPE = 20
-const STAIR_JUMP_HEIGHT = 6
 
 
 func _ready():
@@ -87,11 +78,8 @@ func _process(d):
 	look_vector = dir
 
 
-func _physics_process(delta): #IS PLAYER MOVING NORMALLY OR ON LADDER?
-	if on_ladder:
-		_process_on_ladder(delta)
-	else:
-		_process_movements(delta)
+func _physics_process(delta):
+	_process_movements(delta)
 
 #######################################################################################################
 # NORMAL MOVEMENT
@@ -127,8 +115,7 @@ func _process_movements(delta):
 		if posture_state == STAND:
 			movement_state = RUN
 			move_speed = run_speed
-			if !on_ladder:
-				if up or right or left: # IS MOVING FORWARDS?
+			if up or right or left: # IS MOVING FORWARDS?
 					if sprint:
 						movement_state = SPRINT
 						move_speed = sprint_speed
@@ -182,13 +169,6 @@ func _process_movements(delta):
 	#Normalize direction
 	direction = direction.normalized()
 
-	if (direction.length() > 0 and $Yaw/stair_check.is_colliding()):
-		var stair_normal = $Yaw/stair_check.get_collision_normal()
-		var stair_angle = rad_to_deg(acos(stair_normal.dot(Vector3(0, 1, 0))))
-		if stair_angle < MAX_STAIR_SLOPE:
-			print("STAIR")
-			velocity.y = STAIR_JUMP_HEIGHT
-
 	var hvel = velocity
 	hvel.y = 0
 	var target = direction * move_speed
@@ -209,54 +189,6 @@ func _process_movements(delta):
 	set_floor_max_angle(deg_to_rad(MAX_SLOPE_ANGLE))
 	move_and_slide()
 	velocity = velocity
-
-	throwing(delta)
-
-#######################################################################################################
-# MOVEMENT ON LADDER
-#######################################################################################################
-
-func _process_on_ladder(delta):
-
-	var up = Input.is_action_pressed("ui_up")
-	var down = Input.is_action_pressed("ui_down")
-	var left = Input.is_action_pressed("ui_left")
-	var right = Input.is_action_pressed("ui_right")
-
-	var jump = Input.is_action_pressed("jump")
-
-	var sprint = Input.is_action_pressed("sprint")
-	var walk = Input.is_action_pressed("walk")
-
-	#read camera basis (rotation)
-	var aim = $Yaw/Camera3D.get_camera_transform().basis
-
-	#calculate direction where the player wants to move
-	direction = Vector3()
-
-	if up:
-		direction -= aim[2]
-	if down:
-		direction += aim[2]
-	if left:
-		direction -= aim[0]
-	if right:
-		direction += aim[0]
-
-	direction = direction.normalized()
-
-	# where would the player go at max speed
-	var target = direction * LADDER_SPEED
-
-	# calculate a portion of the distance to go
-	velocity = velocity.lerp(target, LADDER_ACCEL * delta)
-
-	if jump:
-		velocity += look_vector * Vector3(5, 5, 5)
-
-	# move
-	set_velocity(velocity)
-	move_and_slide()
 
 	throwing(delta)
 
@@ -331,16 +263,6 @@ func _input(event):
 #######################################################################################################
 # OTHER
 #######################################################################################################
-
-# LADDER
-func _on_Area_body_entered(body):
-	if body.name == "Player":
-		on_ladder = true
-
-func _on_Area_body_exited(body):
-	if body.name == "Player":
-		on_ladder = false
-
 
 # CROUCHING ANIM
 func _on_crouching_animation_finished(anim_name):
