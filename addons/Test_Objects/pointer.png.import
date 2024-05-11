@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://di800dldv6xpf"
-path="res://.godot/imported/pointer.png-6b67b337e13373df02d9b11e90337cc8.ctex"
+path="res://.godot/imported/pointer.png-a429a7dfbe22ad0d61f299b296f6dc0d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/RadMatt.3DFPP/Test_Objects/pointer.png"
-dest_files=["res://.godot/imported/pointer.png-6b67b337e13373df02d9b11e90337cc8.ctex"]
+source_file="res://addons/Test_Objects/pointer.png"
+dest_files=["res://.godot/imported/pointer.png-a429a7dfbe22ad0d61f299b296f6dc0d.ctex"]
 
 [params]
 

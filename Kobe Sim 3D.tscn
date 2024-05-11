@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://bas5gw1jrys5v"]
 
-[ext_resource type="PackedScene" uid="uid://de2k38hvu000c" path="res://addons/RadMatt.3DFPP/Player.tscn" id="1_21cy5"]
+[ext_resource type="PackedScene" uid="uid://de2k38hvu000c" path="res://addons/Player.tscn" id="1_21cy5"]
 [ext_resource type="PackedScene" path="res://entities/Basketball_board.tscn" id="2_3mvn0"]
-[ext_resource type="Script" path="res://addons/RadMatt.3DFPP/Test_Objects/pickable/Pickable.gd" id="3_rfy6n"]
+[ext_resource type="Script" path="res://addons/Test_Objects/pickable/Pickable.gd" id="3_rfy6n"]
 [ext_resource type="ArrayMesh" uid="uid://crfr117qmhjae" path="res://entities/Basketball/ball/Ball.obj" id="4_x7ene"]
 
 [sub_resource type="Environment" id="1"]
@@ -106,18 +106,18 @@ transform = Transform3D(0.15746, 0, 0, 0, 0.15746, -6.05633e-10, 0, 1.63125e-11,
 mesh = SubResource("21")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="plastic_ball"]
-transform = Transform3D(1.5746, 0, 0, 0, 1.5746, 0, 0, 0, 1.5746, 0, 0, 0)
+transform = Transform3D(1.5746, 0, 0, 0, 1.5746, 5.25987e-09, 0, 1.09445e-09, 1.5746, 0, -1.23998, 0.035845)
 shape = SubResource("23")
 
 [node name="rubber_ball" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.999582, -0.0288956, 0, 0.0288956, 0.999582, -3.06532, 2.10183, 1.84988)
+transform = Transform3D(1, 0, 0, 0, 0.999582, -0.0288956, 0, 0.0288956, 0.999582, -3.06532, 0.933744, 1.84988)
 mass = 10.0
 physics_material_override = SubResource("24")
 can_sleep = false
 script = ExtResource("3_rfy6n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="rubber_ball"]
-transform = Transform3D(0.205196, 0, 0, 0, 0.205197, 4.65661e-10, 0, -4.65661e-10, 0.205197, 0, 0, 0)
+transform = Transform3D(0.205196, 0, 0, 0, 0.205197, 2.40555e-10, 0, -6.36688e-10, 0.205197, 0, 0, 0)
 mesh = SubResource("21")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="rubber_ball"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://de2k38hvu000c"]
 
-[ext_resource type="Script" path="res://addons/RadMatt.3DFPP/Player.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://di800dldv6xpf" path="res://addons/RadMatt.3DFPP/Test_Objects/pointer.png" id="2"]
+[ext_resource type="Script" path="res://addons/Player.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://di800dldv6xpf" path="res://addons/Test_Objects/pointer.png" id="2"]
 
 [sub_resource type="CapsuleMesh" id="1"]
 radius = 0.6
