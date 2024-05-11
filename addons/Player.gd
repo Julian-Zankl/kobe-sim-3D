@@ -6,10 +6,6 @@ var throw_power = 0
 
 var interactor = null
 
-# this was supposedd to be for fall damage, not sure if works
-var last_floor_height
-var can_change_last_floor_height = true
-
 # Movement
 const IDLE = 0
 
@@ -131,12 +127,6 @@ func _process_movements(delta):
 	var normal = $floor_check.get_collision_normal()
 
 	if is_on_floor():
-		if can_change_last_floor_height == false:                           # FALL DAMAGE | Not sure if works properly
-			var height_difference = last_floor_height - get_position().y
-			if height_difference > 0.4:
-				print("OUCH!")
-		can_change_last_floor_height = true
-
 		velocity = velocity - velocity.dot(normal) * normal
 
 		if jump:
@@ -147,9 +137,6 @@ func _process_movements(delta):
 
 	else:
 		_apply_gravity(delta)
-		if can_change_last_floor_height:
-			last_floor_height = get_position().y
-			can_change_last_floor_height = false
 
 	if velocity.x > 0 or velocity.x < 0 and is_moving == false:
 		is_moving = true
