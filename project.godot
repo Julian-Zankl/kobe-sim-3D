@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="3D FPP Demo"
+config/name="Kobe Simulator 3D"
 run/main_scene="res://Room_01.tscn"
 config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
