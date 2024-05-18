@@ -87,18 +87,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector3(0, 3, 0), Vector3(0, 1.5, 0)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ceiling_check:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 3.5, 1.42109e-14), Vector3(0, 1.5, 1.42109e-14)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2wjid"]
 _data = {
@@ -125,10 +113,6 @@ script = ExtResource("1")
 [node name="Capsule" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 2.08165e-12, 1, 2.08165e-12)
 mesh = SubResource("1")
-
-[node name="ceiling_check" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.5, 1.42109e-14)
-target_position = Vector3(0, 0, 4)
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0.995404, 0)

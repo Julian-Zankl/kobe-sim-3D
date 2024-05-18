@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://wn72vimcn04l"
+path="res://.godot/imported/tennisball.obj-2e07aa88f17a44d254a8e9fa35399175.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tennisball.obj-2e07aa88f17a44d254a8e9fa35399175.mesh"]
+
+source_file="res://entities/Basketball/ball/tennisball.obj"
+dest_files=["res://.godot/imported/tennisball.obj-2e07aa88f17a44d254a8e9fa35399175.mesh", "res://.godot/imported/tennisball.obj-2e07aa88f17a44d254a8e9fa35399175.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
