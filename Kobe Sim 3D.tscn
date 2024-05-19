@@ -7,7 +7,7 @@
 [ext_resource type="ArrayMesh" uid="uid://crfr117qmhjae" path="res://entities/Basketball/ball/Ball.obj" id="4_x7ene"]
 [ext_resource type="ArrayMesh" uid="uid://d4fpm7osivri6" path="res://entities/Grenade/grenade.obj" id="5_aswu6"]
 [ext_resource type="ArrayMesh" uid="uid://wn72vimcn04l" path="res://entities/Basketball/ball/tennisball.obj" id="5_sdetj"]
-[ext_resource type="PackedScene" uid="uid://c6simsq1bungu" path="res://world/basketball_court/textures/basketball_court.tscn" id="8_rxkx3"]
+[ext_resource type="PackedScene" uid="uid://cwq8dqtqgwh5c" path="res://court/basketball_court.glb" id="8_e4xqg"]
 
 [sub_resource type="Environment" id="1"]
 ambient_light_color = Color(0.243137, 0.239216, 0.419608, 1)
@@ -70,6 +70,7 @@ transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0.027905
 shadow_enabled = true
 
 [node name="Basketball Court" type="Node3D" parent="."]
+visible = false
 
 [node name="Basketball_board" parent="Basketball Court" instance=ExtResource("2_3mvn0")]
 transform = Transform3D(-7.71821e-08, 0, -1.76572, 0, 1.76572, 0, 1.76572, 0, -7.71821e-08, 0.0117512, 3.079, -12.4378)
@@ -80,7 +81,6 @@ transform = Transform3D(-7.71821e-08, 0, -1.76572, 0, 1.76572, 0, 1.76572, 0, -7
 transform = Transform3D(-7.71821e-08, 0, 1.76572, 0, 1.76572, 0, -1.76572, 0, -7.71821e-08, 0.0117512, 3.079, 12.4122)
 
 [node name="Court" type="StaticBody3D" parent="Basketball Court"]
-visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Basketball Court/Court"]
 mesh = SubResource("PlaneMesh_i8j2v")
@@ -90,15 +90,13 @@ surface_material_override/0 = SubResource("StandardMaterial3D_rhee1")
 shape = SubResource("WorldBoundaryShape3D_iq58j")
 
 [node name="Wand - vorne" type="CollisionShape3D" parent="Basketball Court/Court"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -2.035)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 shape = SubResource("WorldBoundaryShape3D_430lo")
 
 [node name="Wand - rechts" type="CollisionShape3D" parent="Basketball Court/Court"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.215, 0, 0)
 shape = SubResource("WorldBoundaryShape3D_8p55f")
 
 [node name="Wand - hinten" type="CollisionShape3D" parent="Basketball Court/Court"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.05)
 shape = SubResource("WorldBoundaryShape3D_x468i")
 
 [node name="Wand - links" type="CollisionShape3D" parent="Basketball Court/Court"]
@@ -106,23 +104,23 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 shape = SubResource("WorldBoundaryShape3D_2gjbl")
 
 [node name="Granate" type="RigidBody3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.53326, 2.04336, -0.832673)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53326, 2.04336, -0.832673)
 mass = 6.0
 physics_material_override = SubResource("20")
 can_sleep = false
 script = ExtResource("3_rfy6n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Granate"]
-transform = Transform3D(0.005, 0, 0, 0, 0.005, -1.54614e-10, 0, 1.54614e-10, 0.005, 0.075, 0.067, -0.055)
+transform = Transform3D(0.01, 0, 0, 0, 0.01, -3.09228e-10, 0, 3.09228e-10, 0.01, 0.15, 0.0669999, -0.11)
 mesh = ExtResource("5_aswu6")
 surface_material_override/1 = SubResource("StandardMaterial3D_yrhbd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Granate"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 1.6339e-09, 0, -1.6339e-09, 0.5, 0, 0.03, 0)
+transform = Transform3D(1.015, 0, 0, 0, 1.015, 3.31682e-09, 0, -3.31682e-09, 1.015, -0.000757098, -0.00302863, 0.00151438)
 shape = SubResource("23")
 
 [node name="Tennisball" type="RigidBody3D" parent="."]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -1.60347, 1.7584, -0.985255)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46542, 1.7584, -2.27279)
 mass = 2.0
 physics_material_override = SubResource("20")
 can_sleep = false
@@ -138,18 +136,19 @@ transform = Transform3D(1.155, 0, 0, 0, 1.155, 3.77431e-09, 0, -3.77431e-09, 1.1
 shape = SubResource("23")
 
 [node name="Basketball" type="RigidBody3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.199916, -0.00577912, 0, 0.00577912, 0.199916, 0, 0.675475, -6.17433)
+transform = Transform3D(1, 0, 0, 0, 0.999582, -0.0288956, 0, 0.0288956, 0.999582, 0, 0.675475, -6.17433)
 mass = 20.0
 physics_material_override = SubResource("26")
 can_sleep = false
 script = ExtResource("3_rfy6n")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Basketball"]
-transform = Transform3D(0.00452631, 0, 0, 0, 0.00452633, -5.82077e-11, 0, 5.82077e-11, 0.00452633, 0, 0, 0)
+transform = Transform3D(0.002, 0, 0, 0, 0.002, -2.57196e-11, 0, 2.57196e-11, 0.002, 0, 0, 0)
 mesh = ExtResource("4_x7ene")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Basketball"]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
 shape = SubResource("29")
 
-[node name="BigCourt2" parent="." instance=ExtResource("8_rxkx3")]
-transform = Transform3D(-4.37114e-10, 0, 0.01, 0, 0.01, 0, -0.01, 0, -4.37114e-10, 0, 0, 0)
+[node name="basketball_court" parent="." instance=ExtResource("8_e4xqg")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
