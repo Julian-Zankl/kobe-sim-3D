@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cwq8dqtqgwh5c"
-path="res://.godot/imported/basketball_court.glb-554a70af7ef2955c4f31b448efd47ced.scn"
+uid="uid://c3grhd1fvpupi"
+path="res://.godot/imported/basketball_collision.glb-ae617738784978c339b3085a57503fd8.scn"
 
 [deps]
 
-source_file="res://court/basketball_court.glb"
-dest_files=["res://.godot/imported/basketball_court.glb-554a70af7ef2955c4f31b448efd47ced.scn"]
+source_file="res://court/basketball_collision.glb"
+dest_files=["res://.godot/imported/basketball_collision.glb-ae617738784978c339b3085a57503fd8.scn"]
 
 [params]
 
