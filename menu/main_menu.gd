@@ -3,7 +3,7 @@ extends Control
 
 @onready var start_button = $MarginContainer/HBoxContainer/VBoxContainer/StartButton as Button
 @onready var exit_button = $MarginContainer/HBoxContainer/VBoxContainer/ExitButton as Button
-@onready var start_level = preload("res://Kobe Sim 3D.tscn") as PackedScene
+@onready var start_level = preload("res://levels/level_1.tscn") as PackedScene
 
 func _ready():
 	start_button.button_down.connect(on_start_pressed)
