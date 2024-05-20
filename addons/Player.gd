@@ -241,11 +241,8 @@ func _input(event):
 			$crouching.play("crouch")
 			move_speed = walk_speed
 		else:
-			if !($ceiling_check.is_colliding()):
-				$crouching.play_backwards("crouch")
-				move_speed = run_speed
-			else:
-				show_message("I cannot stand here.", 2)
+			$crouching.play_backwards("crouch")
+			move_speed = run_speed
 
 #######################################################################################################
 # OTHER
