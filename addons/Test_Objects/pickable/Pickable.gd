@@ -1,8 +1,6 @@
-
 extends RigidBody3D
 
 var picked_up
-
 var holder
 
 func pick_up(player):
@@ -27,8 +25,11 @@ func leave():
 	holder.carried_object = null
 	picked_up = false
 
-
-
 func throw(power):
 	leave()
 	apply_impulse(holder.look_vector * Vector3(power, power, power), Vector3())
+	
+
+# Remove Ball when scored
+func _on_area_3d_scored():
+	queue_free()
