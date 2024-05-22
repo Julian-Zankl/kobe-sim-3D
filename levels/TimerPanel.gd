@@ -19,5 +19,5 @@ func _process(delta):
 	timeLeft()
 	$Minutes.text = "%02d:" % minutes
 	$Seconds.text = "%02d" % seconds
-	if timer.is_stopped():
-		get_tree().change_scene_to_file("res://menu/main_menu.tscn")
+	#if timer.is_stopped():
+		#get_tree().change_scene_to_file("res://menu/main_menu.tscn")

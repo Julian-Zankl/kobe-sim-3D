@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://hm282g5hhl3n"]
+[gd_scene load_steps=31 format=3 uid="uid://hm282g5hhl3n"]
 
 [ext_resource type="PackedScene" uid="uid://de2k38hvu000c" path="res://addons/Player.tscn" id="1_24xx0"]
 [ext_resource type="PackedScene" uid="uid://c3grhd1fvpupi" path="res://court/basketball_collision.glb" id="2_72yg0"]
@@ -52,10 +52,28 @@ tracks/0/keys = {
 "values": [Vector3(0, 2.425, 12.92), Vector3(1.3, 2.425, 12.92), Vector3(0, 2.425, 12.92), Vector3(-1.3, 2.425, 12.92), Vector3(0, 2.425, 12.92)]
 }
 
+[sub_resource type="Animation" id="Animation_r55vq"]
+resource_name = "oscillate_2nd"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 2.425, -12.92), Vector3(1.3, 2.425, -12.92), Vector3(0, 2.425, -12.92), Vector3(-1.3, 2.425, -12.92), Vector3(0, 2.425, -12.92)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vnywi"]
 _data = {
 "RESET": SubResource("Animation_wkv2q"),
-"oscillate": SubResource("Animation_j3ktc")
+"oscillate": SubResource("Animation_j3ktc"),
+"oscillate_2nd": SubResource("Animation_r55vq")
 }
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_it57t"]
@@ -76,6 +94,12 @@ plane = Plane(1, 0, 0, -7.5)
 bounce = 0.6
 
 [sub_resource type="SphereShape3D" id="29"]
+radius = 0.437386
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mt5xe"]
+bounce = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2n44q"]
 radius = 0.437386
 
 [sub_resource type="PhysicsMaterial" id="20"]
@@ -159,14 +183,11 @@ disabled = true
 
 [node name="Baskets" type="Node3D" parent="."]
 
-[node name="Basketball_board" parent="Baskets" instance=ExtResource("3_w51gq")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2.425, -12.92)
-
-[node name="Area3D" parent="Baskets/Basketball_board" index="5" groups=["scoring"]]
-script = ExtResource("4_qkrkw")
-
 [node name="Basketball_board2" parent="Baskets" instance=ExtResource("3_w51gq")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2.425, 12.92)
+
+[node name="Marker3D" parent="Baskets/Basketball_board2" index="0"]
+transform = Transform3D(0.999999, 0.00146991, -0.000539795, -0.00146908, 0.999998, 0.00153959, 0.000542057, -0.00153879, 0.999999, 0.479993, 0.51078, 0)
 
 [node name="Area3D" parent="Baskets/Basketball_board2" index="5"]
 script = ExtResource("4_qkrkw")
@@ -176,6 +197,21 @@ libraries = {
 "": SubResource("AnimationLibrary_vnywi")
 }
 autoplay = "oscillate"
+
+[node name="Basketball_board1" parent="Baskets" instance=ExtResource("3_w51gq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 2.425, 12.92)
+
+[node name="Marker3D" parent="Baskets/Basketball_board1" index="0"]
+transform = Transform3D(0.999999, 0.00146991, -0.000539795, -0.00146908, 0.999998, 0.00153959, 0.000542057, -0.00153879, 0.999999, 0.479993, 0.51078, 0)
+
+[node name="Area3D" parent="Baskets/Basketball_board1" index="5"]
+script = ExtResource("4_qkrkw")
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="Baskets/Basketball_board1"]
+libraries = {
+"": SubResource("AnimationLibrary_vnywi")
+}
+autoplay = "oscillate_2nd"
 
 [node name="Border" type="StaticBody3D" parent="."]
 
@@ -213,10 +249,25 @@ mesh = ExtResource("5_fl8fs")
 transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
 shape = SubResource("29")
 
-[node name="Basketball_3" type="RigidBody3D" parent="Balls"]
+[node name="Basketball_2" type="RigidBody3D" parent="Balls" groups=["scoring"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, 2)
 mass = 20.0
-physics_material_override = SubResource("26")
+physics_material_override = SubResource("PhysicsMaterial_mt5xe")
+can_sleep = false
+script = ExtResource("4_jsla4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Balls/Basketball_2"]
+transform = Transform3D(0.002, 0, 0, 0, 0.002, -2.57196e-11, 0, 2.57196e-11, 0.002, 0, 0, 0)
+mesh = ExtResource("5_fl8fs")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Balls/Basketball_2"]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
+shape = SubResource("SphereShape3D_2n44q")
+
+[node name="Basketball_3" type="RigidBody3D" parent="Balls" groups=["scoring"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -2)
+mass = 20.0
+physics_material_override = SubResource("PhysicsMaterial_mt5xe")
 can_sleep = false
 script = ExtResource("4_jsla4")
 
@@ -226,12 +277,12 @@ mesh = ExtResource("5_fl8fs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Balls/Basketball_3"]
 transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
-shape = SubResource("29")
+shape = SubResource("SphereShape3D_2n44q")
 
-[node name="Basketball_4" type="RigidBody3D" parent="Balls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -2)
+[node name="Basketball_4" type="RigidBody3D" parent="Balls" groups=["scoring"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 2)
 mass = 20.0
-physics_material_override = SubResource("26")
+physics_material_override = SubResource("PhysicsMaterial_mt5xe")
 can_sleep = false
 script = ExtResource("4_jsla4")
 
@@ -241,12 +292,12 @@ mesh = ExtResource("5_fl8fs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Balls/Basketball_4"]
 transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
-shape = SubResource("29")
+shape = SubResource("SphereShape3D_2n44q")
 
-[node name="Basketball_5" type="RigidBody3D" parent="Balls"]
-transform = Transform3D(1, 0, 0, 0, 0.999582, -0.0288956, 0, 0.0288956, 0.999582, -3, 1, -2)
+[node name="Basketball_5" type="RigidBody3D" parent="Balls" groups=["scoring"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)
 mass = 20.0
-physics_material_override = SubResource("26")
+physics_material_override = SubResource("PhysicsMaterial_mt5xe")
 can_sleep = false
 script = ExtResource("4_jsla4")
 
@@ -256,12 +307,12 @@ mesh = ExtResource("5_fl8fs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Balls/Basketball_5"]
 transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
-shape = SubResource("29")
+shape = SubResource("SphereShape3D_2n44q")
 
-[node name="Basketball_6" type="RigidBody3D" parent="Balls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 0)
+[node name="Basketball_6" type="RigidBody3D" parent="Balls" groups=["scoring"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -2)
 mass = 20.0
-physics_material_override = SubResource("26")
+physics_material_override = SubResource("PhysicsMaterial_mt5xe")
 can_sleep = false
 script = ExtResource("4_jsla4")
 
@@ -271,22 +322,7 @@ mesh = ExtResource("5_fl8fs")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Balls/Basketball_6"]
 transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
-shape = SubResource("29")
-
-[node name="Basketball_7" type="RigidBody3D" parent="Balls"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, 2)
-mass = 20.0
-physics_material_override = SubResource("26")
-can_sleep = false
-script = ExtResource("4_jsla4")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Balls/Basketball_7"]
-transform = Transform3D(0.002, 0, 0, 0, 0.002, -2.57196e-11, 0, 2.57196e-11, 0.002, 0, 0, 0)
-mesh = ExtResource("5_fl8fs")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Balls/Basketball_7"]
-transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
-shape = SubResource("29")
+shape = SubResource("SphereShape3D_2n44q")
 
 [node name="Granate" type="RigidBody3D" parent="Balls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.68004, 2.04336, -11.6268)
@@ -374,14 +410,14 @@ text = "00"
 horizontal_alignment = 2
 
 [node name="Timer" type="Timer" parent="UI/TimerPanel"]
-wait_time = 20.0
+wait_time = 60.0
 one_shot = true
 
-[connection signal="scored" from="Baskets/Basketball_board/Area3D" to="Balls/Basketball_1" method="_on_area_3d_scored"]
-[connection signal="scored" from="Baskets/Basketball_board/Area3D" to="UI/ScoreLabel" method="_on_area_3d_scored"]
 [connection signal="scored" from="Baskets/Basketball_board2/Area3D" to="Balls/Basketball_1" method="_on_area_3d_scored"]
 [connection signal="scored" from="Baskets/Basketball_board2/Area3D" to="UI/ScoreLabel" method="_on_area_3d_scored"]
+[connection signal="scored" from="Baskets/Basketball_board1/Area3D" to="Balls/Basketball_1" method="_on_area_3d_scored"]
+[connection signal="scored" from="Baskets/Basketball_board1/Area3D" to="UI/ScoreLabel" method="_on_area_3d_scored"]
 
 [editable path="Court"]
-[editable path="Baskets/Basketball_board"]
 [editable path="Baskets/Basketball_board2"]
+[editable path="Baskets/Basketball_board1"]
