@@ -17,7 +17,6 @@ func _ready():
 #	# Update game logic here.
 #	pass
 
-
 func _on_Area_body_entered(body):
 	if body is RigidBody3D:
 		get_node("../AnimationPlayer").play("touched")

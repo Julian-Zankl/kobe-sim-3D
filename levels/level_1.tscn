@@ -124,6 +124,12 @@ script = ExtResource("4_bbq2g")
 [node name="Basketball_board2" parent="Baskets" instance=ExtResource("3_gxcfb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 2.425, 12.92)
 
+[node name="Marker3D" parent="Baskets/Basketball_board2" index="0"]
+transform = Transform3D(0.999999, 0.00146991, -0.000539795, -0.00146908, 0.999998, 0.00153959, 0.000542057, -0.00153879, 0.999999, 0.479993, 0.51078, 0)
+
+[node name="Area3D" parent="Baskets/Basketball_board2" index="5"]
+script = ExtResource("4_bbq2g")
+
 [node name="Border" type="StaticBody3D" parent="."]
 
 [node name="Boden" type="CollisionShape3D" parent="Border"]
@@ -267,11 +273,11 @@ surface_material_override/1 = SubResource("StandardMaterial3D_yrhbd")
 transform = Transform3D(1.155, 0, 0, 0, 1.155, 3.77431e-09, 0, -3.77431e-09, 1.155, -0.000757098, -0.00302863, 0.00151438)
 shape = SubResource("23")
 
-[node name="UI" type="Control" parent="."]
+[node name="UI" type="Control" parent="." groups=["scoring", "timer"]]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="ScoreLabel" type="Label" parent="UI" groups=["scoring"]]
+[node name="ScoreLabel" type="Label" parent="UI" groups=["scoring", "timer"]]
 layout_mode = 0
 offset_left = 705.0
 offset_top = 22.0
@@ -326,6 +332,9 @@ one_shot = true
 
 [connection signal="scored" from="Baskets/Basketball_board/Area3D" to="Balls/Basketball_1" method="_on_area_3d_scored"]
 [connection signal="scored" from="Baskets/Basketball_board/Area3D" to="UI/ScoreLabel" method="_on_area_3d_scored"]
+[connection signal="scored" from="Baskets/Basketball_board2/Area3D" to="Balls/Basketball_1" method="_on_area_3d_scored"]
+[connection signal="scored" from="Baskets/Basketball_board2/Area3D" to="UI/ScoreLabel" method="_on_area_3d_scored"]
 
 [editable path="Court"]
 [editable path="Baskets/Basketball_board"]
+[editable path="Baskets/Basketball_board2"]

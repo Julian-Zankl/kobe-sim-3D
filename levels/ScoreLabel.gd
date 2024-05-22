@@ -1,6 +1,6 @@
 extends Label
 
-var score = 0
+var score: int = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,3 +16,6 @@ func _process(delta):
 func _on_area_3d_scored():
 	score += 1
 	text = "Score: %s" % score
+
+func getScore() -> int:
+	return score
