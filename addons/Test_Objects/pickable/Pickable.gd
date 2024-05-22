@@ -14,6 +14,7 @@ func pick_up(player):
 func _process(delta):
 	if picked_up:
 		set_global_transform(holder.get_node("Yaw/Camera3D/pickup_pos").get_global_transform())
+		
 
 func carry():
 	$CollisionShape3D.set_disabled(true)
@@ -33,3 +34,4 @@ func throw(power):
 # Remove Ball when scored
 func _on_area_3d_scored():
 	queue_free()
+

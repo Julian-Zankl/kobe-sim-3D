@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bas5gw1jrys5v"]
+[gd_scene load_steps=25 format=3 uid="uid://bas5gw1jrys5v"]
 
 [ext_resource type="PackedScene" uid="uid://de2k38hvu000c" path="res://addons/Player.tscn" id="1_hmmu6"]
 [ext_resource type="PackedScene" uid="uid://c3grhd1fvpupi" path="res://court/basketball_collision.glb" id="2_ljwry"]
@@ -9,6 +9,7 @@
 [ext_resource type="ArrayMesh" uid="uid://d4fpm7osivri6" path="res://entities/Grenade/grenade.obj" id="6_h7yq6"]
 [ext_resource type="ArrayMesh" uid="uid://wn72vimcn04l" path="res://entities/Basketball/ball/tennisball.obj" id="7_v6fxf"]
 [ext_resource type="Script" path="res://levels/ScoreLabel.gd" id="8_ove7u"]
+[ext_resource type="Script" path="res://levels/TimerPanel.gd" id="10_2lsqp"]
 
 [sub_resource type="Environment" id="1"]
 ambient_light_color = Color(0.243137, 0.239216, 0.419608, 1)
@@ -50,6 +51,8 @@ albedo_color = Color(0.843137, 1, 0.329412, 1)
 radius = 0.1
 
 [sub_resource type="SystemFont" id="SystemFont_4h41d"]
+
+[sub_resource type="SystemFont" id="SystemFont_cevtw"]
 
 [node name="Room_01" type="Node"]
 
@@ -267,22 +270,59 @@ shape = SubResource("23")
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="ScoreLabel" type="Label" parent="UI" groups=["scoring"]]
 layout_mode = 0
 offset_left = 705.0
-offset_top = 51.0
+offset_top = 22.0
 offset_right = 895.0
-offset_bottom = 120.0
+offset_bottom = 91.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 24
 theme_override_fonts/font = SubResource("SystemFont_4h41d")
 theme_override_font_sizes/font_size = 50
 text = "Score: 0"
+horizontal_alignment = 1
 script = ExtResource("8_ove7u")
+
+[node name="TimerPanel" type="Panel" parent="UI" groups=["timer"]]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("10_2lsqp")
+
+[node name="Minutes" type="Label" parent="UI/TimerPanel"]
+layout_mode = 0
+offset_left = 755.0
+offset_top = 91.0
+offset_right = 797.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("SystemFont_cevtw")
+theme_override_font_sizes/font_size = 25
+text = "00 :"
+horizontal_alignment = 2
+
+[node name="Seconds" type="Label" parent="UI/TimerPanel"]
+layout_mode = 0
+offset_left = 795.0
+offset_top = 91.0
+offset_right = 835.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("SystemFont_cevtw")
+theme_override_font_sizes/font_size = 25
+text = "00"
+horizontal_alignment = 2
+
+[node name="Timer" type="Timer" parent="UI/TimerPanel"]
+wait_time = 20.0
+one_shot = true
 
 [connection signal="scored" from="Baskets/Basketball_board/Area3D" to="Balls/Basketball_1" method="_on_area_3d_scored"]
 [connection signal="scored" from="Baskets/Basketball_board/Area3D" to="UI/ScoreLabel" method="_on_area_3d_scored"]
